@@ -1,4 +1,4 @@
-- hosts: ubuntuservers
+- hosts: all
   become: true
   vars:
     - ansible_become_password: Gravity1
