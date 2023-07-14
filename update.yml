@@ -1,16 +1,21 @@
 - hosts: all
   become: true
-  
+
   tasks:
     - name: Update apt repo and cache on all Debian/Ubuntu boxes
-      apt: 
+      apt:
         upgrade: full
-        update_cache: yes 
+        update_cache: yes
         cache_valid_time: 86400
     - name: Check if a reboot is needed on all servers
       register: reboot_required_file
       stat: path=/var/run/reboot-required get_md5=no
-
+    - name: Clear package cache
+      apt:
+        autoclean: yes
+    - name: Remove dependencies that are no longer required
+      apt:
+        autoremove: yes
     - name: Reboot the box if kernel updated
       reboot:
         msg: "Reboot initiated by Ansible for kernel updates"
