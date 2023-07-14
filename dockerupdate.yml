@@ -1,20 +1,33 @@
 - hosts: docker_hosts
-  become: yes
+  become: true
   tasks:
-    - name: install pip
-      apt:
-        package:
+    - name: Install packages
+      apt: 
+        name:
           - python3-pip
-    - name: install docker
+    
+    - name: add user permissions
+      shell: usermod -aG docker danielguichard
+
+    - name: Install python sdk
       pip:
         name:
+          - docker
           - docker-compose
-    - name: backup config
-      synchronize:
-        mode: pull
-        src: "/config/"
-        dest: /prox/config/{{ ansible_hostname }}
-    - name: update all containers
-      docker_compose:
-        project_src: /config
-        pull: yes
+
+    - name: deploy Watchtower
+      community.docker.docker_container:
+        name: watchtower
+        image: containrrr/watchtower
+        command: --schedule "0 0 4 * * *"
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+        restart_policy: always
+        
+    - name: Prune everything
+      community.docker.docker_prune:
+        containers: true
+        images: true
+        networks: true
+        volumes: true
+        builder_cache: true
