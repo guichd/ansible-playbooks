@@ -1,0 +1,20 @@
+- hosts: docker_hosts
+  become: yes
+  tasks:
+    - name: install pip
+      apt:
+        package:
+          - python3-pip
+    - name: install docker
+      pip:
+        name:
+          - docker-compose
+    - name: backup config
+      synchronize:
+        mode: pull
+        src: "/config/"
+        dest: /prox/config/{{ ansible_hostname }}
+    - name: update all containers
+      docker_compose:
+        project_src: /config
+        pull: yes
