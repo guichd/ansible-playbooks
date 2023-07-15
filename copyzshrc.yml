@@ -1,5 +1,4 @@
 - name: Copy zshrc to all hosts
-  become: true
   hosts: all
   tasks:
     - name: Copy file
