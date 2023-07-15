@@ -1,0 +1,9 @@
+  - name: Copy zshrc to all hosts
+    become: true
+    hosts: all
+    tasks:
+      - name: Copy file
+        src: /home/danielguichard/.zshrc
+        dest: /home/danielguichard/.zshrc
+        owner: danielguichard
+        group: danielguichard
