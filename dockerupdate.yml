@@ -2,10 +2,10 @@
   become: true
   tasks:
     - name: Install packages
-      apt: 
+      apt:
         name:
           - python3-pip
-    
+
     - name: add user permissions
       shell: usermod -aG docker danielguichard
 
@@ -23,7 +23,7 @@
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
         restart_policy: always
-        
+
     - name: Prune everything
       community.docker.docker_prune:
         containers: true
