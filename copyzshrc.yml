@@ -1,6 +1,7 @@
 - name: Copy zshrc to all hosts
   become: true
   become_user: danielguichard
+  delegate_to: localhost
   hosts: all
   tasks:
     - name: Copy .zshrc
