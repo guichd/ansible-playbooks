@@ -1,9 +1,13 @@
 - name: Copy zshrc to all hosts
+  become: true
+  become_user: danielguichard
   hosts: all
   tasks:
-    - name: Copy file
+    - name: Copy .zshrc
       copy:
-        src: /home/danielguichard/ansible-files/.zshrc
+        src: /home/danielguichard/.zshrc
         dest: /home/danielguichard/.zshrc
-        owner: danielguichard
-        group: danielguichard
+    - name: Copy .p10k.zsh
+      copy:
+        src: /home/danielguichard/.p10k.zsh
+        dest: /home/danielguichard/.p10k.zsh
