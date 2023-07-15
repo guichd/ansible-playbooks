@@ -4,7 +4,7 @@
   tasks:
     - name: Copy file
       copy:
-        src: /home/danielguichard/.zshrc
+        src: /home/danielguichard/ansible-files/.zshrc
         dest: /home/danielguichard/.zshrc
         owner: danielguichard
         group: danielguichard
