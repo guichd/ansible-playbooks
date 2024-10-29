@@ -18,6 +18,10 @@
           - /var/run/docker.sock:/var/run/docker.sock
         restart_policy: always
         
+    - name: Set working directory
+      ansible.builtin.set_fact:
+        compose_project_path: "/config"
+        
     - name: Pull the latest images for all services in docker-compose
       ansible.builtin.shell: docker compose pull
       args:
