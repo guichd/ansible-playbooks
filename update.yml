@@ -9,7 +9,7 @@
         cache_valid_time: 86400
     - name: Check if a reboot is needed on all servers
       register: reboot_required_file
-      stat: path=/var/run/reboot-required get_md5=no
+      stat: path=/var/run/reboot-required get_checksum=false
     - name: Clear package cache
       apt:
         autoclean: yes
