@@ -13,7 +13,7 @@
       pip:
         name:
           - docker
-          - docker-compose
+          - docker-compose-plugin
 
     - name: deploy Watchtower
       community.docker.docker_container:
