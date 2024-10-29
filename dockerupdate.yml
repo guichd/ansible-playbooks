@@ -17,6 +17,15 @@
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
         restart_policy: always
+        
+    - name: Pull the latest images for all services in docker-compose
+      ansible.builtin.shell: docker compose pull
+      args:
+        chdir: "{{ compose_project_path }}"
+    - name: Start containers with the latest images
+      ansible.builtin.shell: docker compose up -d
+      args:
+        chdir: "{{ compose_project_path }}"
 
     - name: Prune everything
       community.docker.docker_prune:
